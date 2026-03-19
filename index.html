@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Calculate your ROI</title>
+</head>
+<body>
+
+    <div class="roi-calculator">
+
+<!--Title -->
+  <h2>
+   Estimate Your ROI
+  </h2>
+  
+  <!--Inputs -->
+  <div class="roi-inputs">
+   <label>
+    Number of machines
+    <input type="number" id="machines" value="10" placeholder="ex. 10">
+   </label>
+   <label>
+    Downtime cost per hour (SEK)
+    <input type="number" id="downtime" value="ex. 15 000" placeholder="ex. 15 000">
+   </label>
+      <label>
+    Unplanned downtime (hours / month)
+    <input type="number" id="downtime" value="ex. 1 500" placeholder="ex.1 500">
+   </label>
+   <label>
+    Cost per hour (SEK)
+    <input type="number" id="cost" value="500O" placeholder="5 000">
+   </label>
+  </div>
+  <button onclick="calculateROI()">
+   Calculate ROI
+  </button>
+  <div class="roi-results" id="roi-results">
+   <p>
+    Estimated savings:
+    <strong id="savings">
+     —
+    </strong>
+   </p>
+   <p>
+    Estimated ROI time:
+    <strong id="roi-time">
+     —
+    </strong>
+   </p>
+  </div>
+ </div>
+
+ <!-- Java Script -->
+  <script>
+function getImplementationCost(signals) {
+  if (signals < 50) return 60000;
+  if (signals < 500) return 120000;
+  if (signals < 2000) return 180000;
+  return 360000;
+}
+
+function calculateROI() {
+  const costPerHour = parseFloat(document.getElementById('costPerHour').value);
+  const downtime = parseFloat(document.getElementById('downtime').value);
+  const reduction = parseFloat(document.getElementById('reduction').value) / 100;
+  const licenseShare = parseFloat(document.getElementById('licenseShare').value) / 100;
+  const signals = parseFloat(document.getElementById('signals').value);
+
+  // Implementation cost based on signals
+  const implementationCost = getImplementationCost(signals);
+
+  // Formulas
+  const grossSavings = costPerHour * downtime * reduction * 12;
+  const licenseCost = grossSavings * licenseShare;
+  const netSavings = grossSavings - licenseCost;
+  const totalCost = implementationCost + licenseCost;
+
+  const roiYear1 = ((netSavings - implementationCost) / totalCost) * 100;
+  const roiYear2 = ((netSavings - licenseCost) / licenseCost) * 100;
+
+  const monthlyCashFlow = netSavings / 12;
+  const paybackMonths = totalCost / monthlyCashFlow;
+
+  // Display
+  document.getElementById('implCost').innerText = implementationCost.toLocaleString() + " SEK";
+  document.getElementById('grossSavings').innerText = grossSavings.toLocaleString() + " SEK";
+  document.getElementById('licenseCost').innerText = licenseCost.toLocaleString() + " SEK";
+  document.getElementById('netSavings').innerText = netSavings.toLocaleString() + " SEK";
+  document.getElementById('roiYear1').innerText = roiYear1.toFixed(0) + " %";
+  document.getElementById('roiYear2').innerText = roiYear2.toFixed(0) + " %";
+  document.getElementById('payback').innerText = paybackMonths.toFixed(1) + " months";
+}
+</script>
+</body>
+</html>
