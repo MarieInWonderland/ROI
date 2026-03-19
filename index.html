@@ -19,19 +19,19 @@
   <div class="roi-inputs">
    <label>
     Number of machines
-    <input type="number" id="machines" value="10" placeholder="ex. 10">
+    <input type="number" id="machines" value="" placeholder="ex. 10">
    </label>
    <label>
     Downtime cost per hour (SEK)
-    <input type="number" id="downtime" value="ex. 15 000" placeholder="ex. 15 000">
+    <input type="number" id="downtime" value="" placeholder="ex. 15000">
    </label>
       <label>
     Unplanned downtime (hours / month)
-    <input type="number" id="downtime" value="ex. 1 500" placeholder="ex.1 500">
+    <input type="number" id="downtime" value="" placeholder="ex.1500">
    </label>
    <label>
     Cost per hour (SEK)
-    <input type="number" id="cost" value="500O" placeholder="5 000">
+    <input type="number" id="cost" value="" placeholder="5000">
    </label>
   </div>
   <button onclick="calculateROI()">
@@ -39,14 +39,14 @@
   </button>
   <div class="roi-results" id="roi-results">
    <p>
-    Estimated savings:
-    <strong id="savings">
+    Estimated ROI first years:
+    <strong id="roiYear1">
      —
     </strong>
    </p>
    <p>
-    Estimated ROI time:
-    <strong id="roi-time">
+    Estimated ROI second and after years:
+    <strong id="roiYear2">
      —
     </strong>
    </p>

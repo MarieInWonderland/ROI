@@ -43,7 +43,7 @@
   padding: 8px;
   border-radius: 6px;
   border: none;
-  margin-top: 5px;
+  margin: 10px 0px 10px 0px;
   background-color: #8cc4f9;
   font-family: Roboto;
   font-size: 24px;
@@ -65,7 +65,7 @@ button {
   background: #c5871f;
   color: #012f83;
   font-family: Jura;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   cursor: pointer;
 }
