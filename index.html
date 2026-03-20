@@ -16,23 +16,27 @@
   </h2>
   
   <!--Inputs -->
-  <div class="roi-inputs">
-   <label>
-    Number of machines
-    <input type="number" id="machines" value="" placeholder="ex. 10">
-   </label>
-   <label>
-    Downtime cost per hour (SEK)
-    <input type="number" id="downtime" value="" placeholder="ex. 15000">
-   </label>
-      <label>
-    Unplanned downtime (hours / month)
-    <input type="number" id="downtime" value="" placeholder="ex.1500">
-   </label>
-   <label>
+  <div class="roi-inputs">   
+    <label>
     Cost per hour (SEK)
-    <input type="number" id="cost" value="" placeholder="5000">
+    <input type="number" id="costPerHour" value="" placeholder="5000" required>
    </label>
+
+    <label>
+    Unplanned downtime (hours/month)
+    <input type="number" id="unplanned" value="" placeholder="ex. 6" required>
+   </label>
+
+    <label>
+   Expected downtime reduction (%)
+    <input type="number" id="reduction" value="" placeholder="ex. 50" required>
+   </label>
+
+   <label>
+    Number of signals
+    <input type="number" id="signals" value="" placeholder="ex. 10" required>
+   </label>
+
   </div>
   <button onclick="calculateROI()">
    Calculate ROI
@@ -56,6 +60,7 @@
  <!-- Java Script -->
   <script>
 function getImplementationCost(signals) {
+  if (signals = 0) return 0;
   if (signals < 50) return 60000;
   if (signals < 500) return 120000;
   if (signals < 2000) return 180000;
@@ -63,17 +68,19 @@ function getImplementationCost(signals) {
 }
 
 function calculateROI() {
+
+//To take the informations 
   const costPerHour = parseFloat(document.getElementById('costPerHour').value);
-  const downtime = parseFloat(document.getElementById('downtime').value);
+  const unplanned = parseFloat(document.getElementById('unplanned').value);
   const reduction = parseFloat(document.getElementById('reduction').value) / 100;
-  const licenseShare = parseFloat(document.getElementById('licenseShare').value) / 100;
+  const licenseShare = 0.10;
   const signals = parseFloat(document.getElementById('signals').value);
 
   // Implementation cost based on signals
   const implementationCost = getImplementationCost(signals);
 
   // Formulas
-  const grossSavings = costPerHour * downtime * reduction * 12;
+  const grossSavings = costPerHour * unplanned * reduction * 12;
   const licenseCost = grossSavings * licenseShare;
   const netSavings = grossSavings - licenseCost;
   const totalCost = implementationCost + licenseCost;
@@ -81,17 +88,9 @@ function calculateROI() {
   const roiYear1 = ((netSavings - implementationCost) / totalCost) * 100;
   const roiYear2 = ((netSavings - licenseCost) / licenseCost) * 100;
 
-  const monthlyCashFlow = netSavings / 12;
-  const paybackMonths = totalCost / monthlyCashFlow;
-
   // Display
-  document.getElementById('implCost').innerText = implementationCost.toLocaleString() + " SEK";
-  document.getElementById('grossSavings').innerText = grossSavings.toLocaleString() + " SEK";
-  document.getElementById('licenseCost').innerText = licenseCost.toLocaleString() + " SEK";
-  document.getElementById('netSavings').innerText = netSavings.toLocaleString() + " SEK";
   document.getElementById('roiYear1').innerText = roiYear1.toFixed(0) + " %";
   document.getElementById('roiYear2').innerText = roiYear2.toFixed(0) + " %";
-  document.getElementById('payback').innerText = paybackMonths.toFixed(1) + " months";
 }
 </script>
 </body>
