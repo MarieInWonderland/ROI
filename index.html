@@ -20,25 +20,29 @@
     <label>
     Cost per hour (SEK)
     <input type="number" id="costPerHour" value="" placeholder="5000" required>
+    <small class="error" id="error-costPerHour"></small>
    </label>
 
     <label>
     Unplanned downtime (hours/month)
     <input type="number" id="unplanned" value="" placeholder="ex. 6" required>
+    <small class="error" id="error-unplanned"></small>
    </label>
 
     <label>
    Expected downtime reduction (%)
     <input type="number" id="reduction" value="" placeholder="ex. 50" required>
+    <small class="error" id="error-reduction"></small>
    </label>
 
    <label>
     Number of signals
     <input type="number" id="signals" value="" placeholder="ex. 10" required>
+    <small class="error" id="error-signals"></small>
    </label>
 
   </div>
-  <button onclick="calculateROI()">
+  <button onclick="calculateROI()" id="roiBtn">
    Calculate ROI
   </button>
   <div class="roi-results" id="roi-results">
@@ -59,8 +63,11 @@
 
  <!-- Java Script -->
   <script>
+
+// number of signals
+
 function getImplementationCost(signals) {
-  if (signals = 0) return 0;
+  if (signals === 0) return 0;
   if (signals < 50) return 60000;
   if (signals < 500) return 120000;
   if (signals < 2000) return 180000;
@@ -69,12 +76,62 @@ function getImplementationCost(signals) {
 
 function calculateROI() {
 
-//To take the informations 
-  const costPerHour = parseFloat(document.getElementById('costPerHour').value);
-  const unplanned = parseFloat(document.getElementById('unplanned').value);
-  const reduction = parseFloat(document.getElementById('reduction').value) / 100;
+  //Button 
+
+  const btn = document.getElementById("roiBtn");
+  btn.disabled = true;
+
+  //Error message 
+
+  const fields = ["costPerHour", "unplanned", "reduction", "signals"];
+  let hasError = false;
+  const values = {};
+
+  function setError(id, message) {
+  const errorElement = document.getElementById("error-" + id);
+  const inputElement = document.getElementById(id);
+
+  errorElement.innerText = message;
+  inputElement.classList.add("error-border");
+}
+
+function clearError(id) {
+  const errorElement = document.getElementById("error-" + id);
+  const inputElement = document.getElementById(id);
+
+  errorElement.innerText = "";
+  inputElement.classList.remove("error-border");
+}
+
+  fields.forEach(id => {
+    const input = document.getElementById(id);
+    const value = parseFloat(input.value);
+
+    clearError(id);
+
+    if (input.value.trim() === "") {
+      setError(id, "This field is required");
+      hasError = true;
+    } else if (Number.isNaN(value)) {
+      setError(id, "Must be a valid number");
+      hasError = true;
+    } else {
+      values[id] = value;
+    }
+  });
+
+  if (hasError) {
+    btn.disabled = false;
+    return;
+  }
+
+  //calcul of the ROI
+  const costPerHour = values.costPerHour;
+  const unplanned = values.unplanned;
+  const reduction = values.reduction / 100;
+  const signals = values.signals;
+
   const licenseShare = 0.10;
-  const signals = parseFloat(document.getElementById('signals').value);
 
   // Implementation cost based on signals
   const implementationCost = getImplementationCost(signals);
@@ -86,11 +143,14 @@ function calculateROI() {
   const totalCost = implementationCost + licenseCost;
 
   const roiYear1 = ((netSavings - implementationCost) / totalCost) * 100;
-  const roiYear2 = ((netSavings - licenseCost) / licenseCost) * 100;
+  const roiYear2 = (netSavings / licenseCost) * 100;
+  
 
   // Display
   document.getElementById('roiYear1').innerText = roiYear1.toFixed(0) + " %";
   document.getElementById('roiYear2').innerText = roiYear2.toFixed(0) + " %";
+
+  btn.disabled = false;
 }
 </script>
 </body>

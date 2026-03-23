@@ -46,14 +46,14 @@
   margin: 10px 0px 10px 0px;
   background-color: #8cc4f9;
   font-family: Roboto;
-  font-size: 24px;
-  color: #dddbdb;
+  font-size: 18px;
+  color: #010C28;
 }
 
 .roi-inputs input::placeholder {
   font-family: Roboto;
-  font-size: 24px;
-  color: #dddbdb;
+  font-size: 16px;
+  color: #4b6073;
 }
 
 button {
@@ -78,7 +78,31 @@ button:hover {
 .roi-results {
   margin-top: 20px;
   font-family: Roboto;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.6;
 
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+  display: block;
+  margin-top: 4px;
+}
+
+input.error-border {
+  background-color: red;
+  opacity: 25%;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
