@@ -87,22 +87,6 @@ function calculateROI() {
   let hasError = false;
   const values = {};
 
-  function setError(id, message) {
-  const errorElement = document.getElementById("error-" + id);
-  const inputElement = document.getElementById(id);
-
-  errorElement.innerText = message;
-  inputElement.classList.add("error-border");
-}
-
-function clearError(id) {
-  const errorElement = document.getElementById("error-" + id);
-  const inputElement = document.getElementById(id);
-
-  errorElement.innerText = "";
-  inputElement.classList.remove("error-border");
-}
-
   fields.forEach(id => {
     const input = document.getElementById(id);
     const value = parseFloat(input.value);
