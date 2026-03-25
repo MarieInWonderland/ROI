@@ -7,7 +7,7 @@
     <title>Calculate your ROI</title>
 </head>
 <body>
-
+<section>
     <div class="roi-calculator">
 
 <!--Title -->
@@ -18,25 +18,25 @@
   <!--Inputs -->
   <div class="roi-inputs">   
     <label>
-    Cost per hour (SEK)
+    Cost per hour (SEK) <span class="required">*</span>
     <input type="number" id="costPerHour" value="" placeholder="5000" required>
     <small class="error" id="error-costPerHour"></small>
    </label>
 
     <label>
-    Unplanned downtime (hours/month)
+    Unplanned downtime (hours/month) <span class="required">*</span>
     <input type="number" id="unplanned" value="" placeholder="ex. 6" required>
     <small class="error" id="error-unplanned"></small>
    </label>
 
     <label>
-   Expected downtime reduction (%)
+   Expected downtime reduction (%) <span class="required">*</span>
     <input type="number" id="reduction" value="" placeholder="ex. 50" required>
     <small class="error" id="error-reduction"></small>
    </label>
 
    <label>
-    Number of signals
+    Number of signals <span class="required">*</span>
     <input type="number" id="signals" value="" placeholder="ex. 10" required>
     <small class="error" id="error-signals"></small>
    </label>
@@ -45,27 +45,33 @@
   <button onclick="calculateROI()" id="roiBtn">
    Calculate ROI
   </button>
-  <div class="roi-results" id="roi-results">
-   <p>
-    Estimated ROI first years:
-    <strong id="roiYear1">
-     —
-    </strong>
-   </p>
-   <p>
-    Estimated ROI second and after years:
-    <strong id="roiYear2">
-     —
-    </strong>
-   </p>
   </div>
- </div>
+
+  <div class="roi-results" id="roi-results">
+     <h2>
+   Your ROI
+  </h2>
+  <div class="roiyears1">
+       <p>
+    Estimated ROI first years:</p>
+    <strong id="roiYear1">
+     —  %
+    </strong>
+  </div>
+
+   <div class="roiyears2">
+       <p>
+    Estimated ROI second and after years:   </p>
+    <strong id="roiYear2">
+     — %
+    </strong>
+   </div>
+  </div>
+</section>
 
  <!-- Java Script -->
-  <script>
-
+<script>
 // number of signals
-
 function getImplementationCost(signals) {
   if (signals === 0) return 0;
   if (signals < 50) return 60000;
@@ -74,14 +80,20 @@ function getImplementationCost(signals) {
   return 360000;
 }
 
-function calculateROI() {
+// Error functions
+function setError(id, message) {
+  document.getElementById("error-" + id).innerText = message;
+}
 
-  //Button 
+function clearError(id) {
+  document.getElementById("error-" + id).innerText = "";
+}
+
+// Main function
+function calculateROI() {
 
   const btn = document.getElementById("roiBtn");
   btn.disabled = true;
-
-  //Error message 
 
   const fields = ["costPerHour", "unplanned", "reduction", "signals"];
   let hasError = false;
@@ -99,6 +111,9 @@ function calculateROI() {
     } else if (Number.isNaN(value)) {
       setError(id, "Must be a valid number");
       hasError = true;
+    } else if (value < 0) {
+      setError(id, "Value must be positive");
+      hasError = true;
     } else {
       values[id] = value;
     }
@@ -109,7 +124,7 @@ function calculateROI() {
     return;
   }
 
-  //calcul of the ROI
+  // Calcul
   const costPerHour = values.costPerHour;
   const unplanned = values.unplanned;
   const reduction = values.reduction / 100;
@@ -117,10 +132,8 @@ function calculateROI() {
 
   const licenseShare = 0.10;
 
-  // Implementation cost based on signals
   const implementationCost = getImplementationCost(signals);
 
-  // Formulas
   const grossSavings = costPerHour * unplanned * reduction * 12;
   const licenseCost = grossSavings * licenseShare;
   const netSavings = grossSavings - licenseCost;
@@ -128,7 +141,6 @@ function calculateROI() {
 
   const roiYear1 = ((netSavings - implementationCost) / totalCost) * 100;
   const roiYear2 = (netSavings / licenseCost) * 100;
-  
 
   // Display
   document.getElementById('roiYear1').innerText = roiYear1.toFixed(0) + " %";
@@ -136,6 +148,17 @@ function calculateROI() {
 
   btn.disabled = false;
 }
-</script>
+
+const fields = ["costPerHour", "unplanned", "reduction", "signals"];
+
+fields.forEach(id => {
+  const input = document.getElementById(id);
+
+  input.addEventListener("input", () => {
+    // Supprime toutes les erreurs
+    fields.forEach(fieldId => clearError(fieldId));
+  });
+});
+</script>  
 </body>
 </html>

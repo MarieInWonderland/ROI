@@ -7,18 +7,49 @@
     box-sizing: border-box;
 }
 
+body{
+  background-color: #010C28;
 
-.roi-calculator {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #012f83;
-  color: #dddbdb;
-  border-radius: 12px;
 }
 
-.roi-calculator h2 {
-  text-align: center;
+/* The two frames */
+section{
+  margin: 0px 80px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* The two frames mobiles */
+  @media (max-width: 767px) {
+    section{
+    margin: 0px 30px; 
+    flex-direction: column;
+    gap: 20px; 
+    }
+  }
+
+
+/* The calculator itself */
+.roi-calculator {
+  margin: 40px auto;
+  padding: 30px;
+  background: #010C28;
+  color: #dddbdb;
+  box-shadow: 5px 5px 10px #8CC4F9;
+}
+
+/* The calculator itself */
+@media (max-width: 767px){
+.roi-calculator {
+  margin: 0px auto;
+  }
+}
+
+
+/* Title */
+h2 {
+  text-align: left;
   margin-bottom: 20px;
   font-family: Jura;
   font-size: 30px;
@@ -26,43 +57,75 @@
   line-height: 130%;
 }
 
+/*Title mobile*/
+  @media (max-width: 767px) {
+    h2{
+      font-size: 20px;
+    } 
+  }
+
+/*inputs*/
 .roi-inputs {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+}
+
+/* * */
+.required {
+  color: red;
 }
 
 .roi-inputs label {
     font-family: Roboto;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .roi-inputs input {
   width: 100%;
-  height: 50px;
-  padding: 8px;
+  height: 40x;
+  padding: 10px 15px;
   border-radius: 6px;
   border: none;
-  margin: 10px 0px 10px 0px;
-  background-color: #8cc4f9;
+  margin: 5px 0px 10px 0px ;
+  background-color: #dddbdb;
   font-family: Roboto;
-  font-size: 18px;
+  font-size: 16px;
   color: #010C28;
 }
+/*inputs mobile */
+@media (max-width: 767px) {
+    .roi-inputs label{
+      font-size: 15px;
+    }
 
+    .roi-inputs input{
+      font-size: 13px;
+    }
+  }
+
+/* Placeholder */ 
 .roi-inputs input::placeholder {
   font-family: Roboto;
   font-size: 16px;
-  color: #4b6073;
+  color: #010C2850;
 }
 
+/* Placeholder Mobile */
+@media (max-width: 767px) {
+    .roi-inputs input::placeholder{
+      font-size: 13px;
+  }
+}
+
+/* Button*/
+
 button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 12px;
+  margin-top: 18px;
+  padding: 12px 30px;
   border: none;
   border-radius: 8px;
-  background: #c5871f;
+  background: #8CC4F9;
   color: #012f83;
   font-family: Jura;
   font-size: 24px;
@@ -70,29 +133,65 @@ button {
   cursor: pointer;
 }
 
+/*Button Mobile */
+@media (max-width: 767px) {
+  button{
+    font-size: 15px;
+  }
+  }
+
+
 button:hover {
-  background: #012f83;
-  color: #c5871f
+  background: #010C28;
+  color: #8CC4F9;
 }
 
-.roi-results {
-  margin-top: 20px;
+/*Result*/ 
+.roi-results{
+  margin: 40px auto;
+  padding: 30px;
+  background: #010C28;
+  color: #dddbdb;
+  box-shadow: 5px 5px 10px #8CC4F9;
+  text-align: left;
   font-family: Roboto;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.6;
-
 }
 
+#roiYear1, #roiYear2{
+  font-family: jura;
+  font-size: 60px;
+  font-weight: 600;
+  color: #C5871F;
+}
+/*inputs mobile */
+@media (max-width: 767px) {
+    .roi-results{
+      font-size: 15px;
+    }
+    #roiYear1, #roiYear2{
+      font-size: 30px;
+    }
+  }
+
+/*error message */ 
 .error {
   color: red;
   font-size: 0.8em;
   display: block;
-  margin-top: 4px;
+  margin-top: 0px;
+  font-family: Roboto;
+
 }
 
 input.error-border {
-  background-color: red;
-  opacity: 25%;
+  border: 2px solid red;
+  
+}
+
+input.error::placeholder {
+  color: red;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -106,3 +205,4 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
