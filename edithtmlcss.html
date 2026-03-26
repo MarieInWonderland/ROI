@@ -1,0 +1,281 @@
+<!-- *** ADD OR EDIT HTML INSIDE OF THE dmRespCol DIVS, SEE DOCUMENTATION FOR GUIDELINES *** -->
+<div class="ROI-wrapper" id="1633534420" data-uialign="center" data-preserve-display="true">
+ <style>
+  /* The two frames */
+.ROI-wrapper{
+  width: 100%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+/* The two frames mobiles */
+  @media (max-width: 767px) {
+    .ROI-wrapper{
+    margin: 0px auto; 
+    flex-direction: column;
+    gap: 20px; 
+    }
+  }
+/* The calculator itself */
+.roi-calculator {
+  width: 70%;
+  margin: 40px auto;
+  padding: 30px;
+  background: #010C28;
+  color: #dddbdb;
+  box-shadow: 5px 5px 10px #8CC4F9;
+}
+@media (max-width: 767px){
+    .roi-calculator{
+        width:100%;
+    }
+}
+/* Title */
+.roih2 {
+  text-align: left;
+  margin-bottom: 100px;
+  font-family: 'Jura', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 130%;
+}
+.ROI-wrapper .roi-calculator .roi-input {
+  width: 100%;
+  height: 40px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: none;
+  margin: 5px 0px 10px 0px ;
+  background-color: #dddbdd !important;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #010C28;
+}
+/* Placeholder */ 
+.roi-input::placeholder {
+  font-family: Roboto;
+  font-size: 16px;
+  color: #010C2850;
+}
+/* * */
+.required {
+  color: red;
+}
+/* Button*/
+.ROI-wrapper .roi-calculator button {
+  margin-top: 18px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  background: #8CC4F9;
+  color: #012f83;
+  font-family: 'Jura', sans-serif ;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.roi-calculator button:hover {
+  background: #010C28;
+  color: #8CC4F9;
+}
+/*Result*/ 
+.roi-results{
+  width: 30%;
+  margin: 40px auto;
+  padding: 30px;
+  background: #010C28;
+  color: #dddbdb;
+  box-shadow: 5px 5px 10px #8CC4F9;
+  text-align: left;
+  font-family: Roboto;
+  font-size: 18px;
+  line-height: 1.6;
+}
+@media (max-width: 767px){
+    .roi-results{
+        width:100%;
+    }
+}
+.ROI-wrapper .roi-results .roi-year{
+  font-family: 'Jura', sans-serif !important;
+  font-size: 60px !important;
+  font-weight: 600 !important;
+  color: #C5871F !important;
+}
+/*error message */ 
+.error {
+  color: red;
+  font-size: 0.8em;
+  display: block;
+  margin-top: 0px;
+  font-family: Roboto;
+}
+input.error-border {
+  border: 2px solid red;
+}
+input.error::placeholder {
+  color: red;
+}
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+ </style>
+
+ <div class="roi-calculator">
+
+  <!--Title -->
+  <h2 class="roih2">
+   <span style="font-weight: 400;" no_space_b="true" no_space_e="true">
+    &nbsp;
+   </span>
+   Estimate Your ROI
+  </h2>
+
+  <!--Inputs -->
+  <div class="roi-inputs">
+   <label>
+    Cost per hour (SEK)
+    <span class="required">
+     *
+    </span>
+     <input class="roi-input font-size-NaN m-font-size-NaN" type="number" value="" placeholder="5000" required="" data-placeholder-original="5000" style="" add_space_before="true" add_space_after="true"/>
+    <small class="error font-size-NaN m-font-size-NaN" style="">
+    </small>
+   </label>
+   <label>
+    Unplanned downtime (hours/month)
+    <span class="required">
+     *
+    </span>
+     <input class="roi-input font-size-NaN m-font-size-NaN" type="number" value="" placeholder="ex. 6" required="" data-placeholder-original="ex. 6" style="" add_space_before="true" add_space_after="true"/>
+    <small class="error font-size-NaN m-font-size-NaN" style="">
+    </small>
+   </label>
+   <label>
+    Expected downtime reduction (%)
+    <span class="required">
+     *
+    </span>
+     <input class="roi-input font-size-NaN m-font-size-NaN" type="number" value="" placeholder="ex. 50" required="" data-placeholder-original="ex. 50" style="" add_space_before="true" add_space_after="true"/>
+    <small class="error font-size-NaN m-font-size-NaN" style="">
+    </small>
+   </label>
+   <label>
+    Number of signals
+    <span class="required">
+     *
+    </span>
+     <input class="roi-input font-size-NaN m-font-size-NaN" type="number" value="" placeholder="ex. 10" required="" data-placeholder-original="ex. 10" style="" add_space_before="true" add_space_after="true"/>
+    <small class="error font-size-NaN m-font-size-NaN" style="">
+    </small>
+   </label>
+  </div>
+
+  <button onclick="calculateROI()" style="" class="font-size-NaN m-font-size-NaN">
+   Calculate ROI
+  </button>
+ </div>
+
+ <div class="roi-results font-size-NaN m-font-size-NaN" style="">
+  <h2 class="roih2">
+   Your ROI
+  </h2>
+  <div class="roiyears1">
+   <p>
+    Estimated ROI first years:
+   </p>
+   <strong style="" class="font-size-NaN m-font-size-NaN roi-year" add_space_after="true">
+    &mdash;  %
+   </strong>
+  </div>
+  <div class="roiyears2">
+   <p>
+    Estimated ROI second and after years:
+   </p>
+   <strong style="" class="font-size-NaN m-font-size-NaN roi-year" add_space_after="true">
+    &mdash; %
+   </strong>
+  </div>
+ </div>
+ 
+ <!-- Java Script -->
+ <script>
+  // number of signals
+function getImplementationCost(signals) {
+  if (signals === 0) return 0;
+  if (signals < 50) return 60000;
+  if (signals < 500) return 120000;
+  if (signals < 2000) return 180000;
+  return 360000;
+}
+// Error functions
+function setError(id, message) {
+  document.getElementById("error-" + id).innerText = message;
+}
+function clearError(id) {
+  document.getElementById("error-" + id).innerText = "";
+}
+// Main function
+function calculateROI() {
+  const btn = document.getElementById("roiBtn");
+  btn.disabled = true;
+  const fields = ["costPerHour", "unplanned", "reduction", "signals"];
+  let hasError = false;
+  const values = {};
+  fields.forEach(id => {
+    const input = document.getElementById(id);
+    const value = parseFloat(input.value);
+    clearError(id);
+    if (input.value.trim() === "") {
+      setError(id, "This field is required");
+      hasError = true;
+    } else if (Number.isNaN(value)) {
+      setError(id, "Must be a valid number");
+      hasError = true;
+    } else if (value < 0) {
+      setError(id, "Value must be positive");
+      hasError = true;
+    } else {
+      values[id] = value;
+    }
+  });
+  if (hasError) {
+    btn.disabled = false;
+    return;
+  }
+  // Calcul
+  const costPerHour = values.costPerHour;
+  const unplanned = values.unplanned;
+  const reduction = values.reduction / 100;
+  const signals = values.signals;
+  const licenseShare = 0.10;
+  const implementationCost = getImplementationCost(signals);
+  const grossSavings = costPerHour * unplanned * reduction * 12;
+  const licenseCost = grossSavings * licenseShare;
+  const netSavings = grossSavings - licenseCost;
+  const totalCost = implementationCost + licenseCost;
+  const roiYear1 = ((netSavings - implementationCost) / totalCost) * 100;
+  const roiYear2 = (netSavings / licenseCost) * 100;
+  // Display
+  document.getElementById('roiYear1').innerText = roiYear1.toFixed(0) + " %";
+  document.getElementById('roiYear2').innerText = roiYear2.toFixed(0) + " %";
+  btn.disabled = false;
+}
+const fields = ["costPerHour", "unplanned", "reduction", "signals"];
+fields.forEach(id => {
+  const input = document.getElementById(id);
+  input.addEventListener("input", () => {
+    // Take away all the errors
+    fields.forEach(fieldId => clearError(fieldId));
+  });
+});
+ </script>
+</div>
